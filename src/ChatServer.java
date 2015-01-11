@@ -2,7 +2,9 @@ import java.net.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+
 import javax.swing.*;
+import javax.swing.border.Border;
 
 public class ChatServer {
 	public static void main(String[] args) throws Exception
@@ -14,7 +16,7 @@ public class ChatServer {
 		
 		BufferedReader clientin = new BufferedReader(new InputStreamReader(client.getInputStream()));
 		
-		while(true)																								//Accept message
+		while(true)					//Accept message
 		{
 			csf.in.append("Client: " + clientin.readLine() +"\n");
 		}
@@ -25,20 +27,23 @@ class ChatServerFrame extends JFrame
 {
 	JTextArea out = new JTextArea(1, 30);
 	JTextArea in = new JTextArea(20, 30);
+	JPanel pan = new JPanel();
 	String read = null;
 	Socket client;
 	PrintWriter serverout;
 	ChatServerFrame(Socket client)
 	{
 		super("ChatServer");
-	    in.setBorder(BorderFactory.createRaisedBevelBorder());
-	    out.setLineWrap(true);
-	    in.setLineWrap(true);
-		Button send = new Button("Send");
+		Border border = BorderFactory.createLineBorder(Color.orange, 1);
+	    in.setBorder(border);
+	    out.setBorder(border);
+		JButton send = new JButton("Send");
 		send.addActionListener(new SendServerMonitor());
-	    add(out, BorderLayout.SOUTH);
-		add(in, BorderLayout.CENTER);
-		add(send, BorderLayout.EAST);
+		pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
+		pan.add(in);
+	    pan.add(out);
+		pan.add(send);
+		add(pan);
 		pack();
 		setVisible(true);
 		

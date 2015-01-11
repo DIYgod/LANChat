@@ -2,7 +2,9 @@ import java.net.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+
 import javax.swing.*;
+import javax.swing.border.Border;
 
 public class ChatClient {
 	public static void main(String[] args) throws Exception{
@@ -21,22 +23,24 @@ class ChatFrame extends JFrame
 {
 	JTextArea out = new JTextArea(1, 30);
 	JTextArea in = new JTextArea(20, 30);
+	JPanel pan = new JPanel();
 	Socket client;
 	PrintWriter clientout;
 	ChatFrame(Socket client)
 	{
 		super("ChatClient");
-	    in.setBorder(BorderFactory.createRaisedBevelBorder());
-	    out.setLineWrap(true);
-	    in.setLineWrap(true);
-		Button send = new Button("Send");
+		Border border = BorderFactory.createLineBorder(Color.orange, 1);
+	    in.setBorder(border);
+	    out.setBorder(border);
+		JButton send = new JButton("Send");
 		send.addActionListener(new SendMonitor());
-	    add(out, BorderLayout.SOUTH);
-		add(in, BorderLayout.CENTER);
-		add(send, BorderLayout.EAST);
+		pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
+		pan.add(in);
+	    pan.add(out);
+		pan.add(send);
+		add(pan);
 		pack();
 		setVisible(true);
-		
 
 		this.client = client;
 		try {
