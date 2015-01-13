@@ -39,12 +39,14 @@ class ChatServerFrame extends JFrame
 	    out.setBorder(border);
 		JButton send = new JButton("Send");
 		send.addActionListener(new SendServerMonitor());
-		pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
+		pan.setLayout(new FlowLayout());
 		pan.add(in);
 	    pan.add(out);
 		pan.add(send);
 		add(pan);
-		pack();
+		addWindowListener(new ServerWindowListener());
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(350,370);
 		setVisible(true);
 		
 		this.client = client;
@@ -64,6 +66,15 @@ class ChatServerFrame extends JFrame
 			serverout.println(s);
 			serverout.flush();
 			out.setText("");
-			}
 		}
 	}
+	
+	class ServerWindowListener extends WindowAdapter
+	{
+		 public void windowClosing(WindowEvent e) 
+		 {
+				serverout.println("Server connection is broken!");
+				serverout.flush();
+		 }
+	}
+}

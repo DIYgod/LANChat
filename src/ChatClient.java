@@ -34,12 +34,13 @@ class ChatFrame extends JFrame
 	    out.setBorder(border);
 		JButton send = new JButton("Send");
 		send.addActionListener(new SendMonitor());
-		pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
+		pan.setLayout(new FlowLayout());
 		pan.add(in);
 	    pan.add(out);
 		pan.add(send);
 		add(pan);
-		pack();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(350,370);
 		setVisible(true);
 
 		this.client = client;
