@@ -11,3 +11,7 @@ Java局域网聊天程序
 + 实现图形界面
 
 + 先运行 `ChatServer` 再运行 `ChatClient`
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/DIYgod/lanchat/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
